@@ -39,13 +39,13 @@ class BinaryTree:
     def _append_recursive(self, current_node: BaseNode, value: int):
         if current_node.value > value:
             if current_node.left_edge:
-                return self._append_recursive(current_node.left_edge, value)
+                self._append_recursive(current_node.left_edge, value)
             else:
                 current_node.left_edge = BaseNode(value)
                 return
         else:
             if current_node.right_edge:
-                return self._append_recursive(current_node.right_edge, value)
+                self._append_recursive(current_node.right_edge, value)
             else:
                 current_node.right_edge = BaseNode(value)
                 return
