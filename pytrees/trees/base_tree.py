@@ -36,6 +36,13 @@ class BinaryTree:
         else:
             self._append_recursive(self.head_node, value)
 
+    def extend(self, value: list):
+        for val in value:
+            if not self.head_node:
+                self.head_node = BaseNode(val)
+            else:
+                self._append_recursive(self.head_node, val)
+
     def _append_recursive(self, current_node: BaseNode, value: int):
         if current_node.value > value:
             if current_node.left_edge:
