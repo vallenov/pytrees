@@ -26,7 +26,7 @@ class BinaryTree:
             print('Tree is empty')
             return
         self._passing_draw()
-        print(f'Levels count: {self.levels_count()}')
+        print(f'Levels count: {self.levels_count()}\n')
 
     def levels_count(self):
         level_count = 0
@@ -55,11 +55,15 @@ class BinaryTree:
         self._passing(current_node.right_edge)
 
     def _passing_draw(self):
+        """
+        Beautiful tree drawing
+        """
         lst = [self.head_node]
         lev_tree = self.levels_count()
-        width = (2 ** lev_tree) * (self.max_len_value + 1)
+        width = (2 ** lev_tree + 1) * (self.max_len_value + 1)
+        cur_level = 1
         while lst:
-            string = ''
+            string = f'level {cur_level}:'.ljust(10)
             interval = width // len(lst)
             for node in lst:
                 if node is None:
@@ -70,6 +74,7 @@ class BinaryTree:
                     val = node.value
                 string += f'{val}'.center(interval)
             print(string)
+            cur_level += 1
             tmp = lst.copy()
             lst = []
             for node in tmp:
@@ -129,7 +134,6 @@ class BinaryTree:
                 current_node.left_edge.value = current_node.left_edge.left_edge.value
                 current_node.left_edge.left_edge.right_edge = current_node.left_edge.right_edge
                 current_node.left_edge = current_node.left_edge.left_edge
-                #current_node.left_edge.left_edge = None
             elif current_node.left_edge.right_edge:
                 current_node.left_edge.right_edge.left_edge = current_node.left_edge.left_edge
                 current_node.left_edge = current_node.left_edge.right_edge
@@ -147,7 +151,6 @@ class BinaryTree:
                 current_node.right_edge.value = current_node.right_edge.right_edge.value
                 current_node.right_edge.right_edge.left_edge = current_node.right_edge.left_edge
                 current_node.right_edge = current_node.right_edge.right_edge
-                #current_node.right_edge.right_edge = None
             else:
                 current_node.right_edge = None
             return
