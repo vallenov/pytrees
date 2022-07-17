@@ -1,3 +1,6 @@
+import time
+
+
 class BaseNode:
     def __init__(self, value, right_edge=None, left_edge=None):
         self.value = value
@@ -16,6 +19,7 @@ class BaseNode:
 class BinaryTree:
     def __init__(self):
         self.head_node = None
+        self.max_len_value = 0
 
     def print_tree(self):
         if not self.head_node:
@@ -50,19 +54,24 @@ class BinaryTree:
     def _passing_draw(self):
         lst = [self.head_node]
         lev_tree = self.levels_count()
-        cnt_in_lst = 1
+        width = (2 ** lev_tree) * (self.max_len_value + 1)
         while lst:
             string = ''
+            interval = width // len(lst)
             for node in lst:
-                interval = lev_tree * 3
-                cnt_in_lst *= 2
-                string += ' ' * interval + f'{" " if not node else node.value}'
+                if node is None:
+                    val = 'N'
+                elif node == '':
+                    val = ''
+                else:
+                    val = node.value
+                string += f'{val}'.center(interval)
             print(string)
-            lev_tree -= 1
             tmp = lst.copy()
             lst = []
             for node in tmp:
-                if not node:
+                if not node or node == '':
+                    lst.extend(['', ''])
                     continue
                 if node.left_edge:
                     lst.append(node.left_edge)
@@ -72,6 +81,8 @@ class BinaryTree:
                     lst.append(node.right_edge)
                 else:
                     lst.append(None)
+            if lst.count('') == len(lst):
+                break
 
     def _search(self, current_node: BaseNode, value: int):
         if not current_node:
@@ -142,12 +153,16 @@ class BinaryTree:
             if current_node.left_edge:
                 self._append_recursive(current_node.left_edge, value)
             else:
+                if len(str(value)) > self.max_len_value:
+                    self.max_len_value = len(str(value))
                 current_node.left_edge = BaseNode(value)
                 return
         else:
             if current_node.right_edge:
                 self._append_recursive(current_node.right_edge, value)
             else:
+                if len(str(value)) > self.max_len_value:
+                    self.max_len_value = len(str(value))
                 current_node.right_edge = BaseNode(value)
                 return
 
