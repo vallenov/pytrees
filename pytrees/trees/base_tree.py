@@ -52,7 +52,7 @@ class BinaryTree:
         """
         lst = [self.head_node]
         lev_tree = self.levels_count()
-        width = (2 ** lev_tree + 1) * (self.max_len_value + 1)
+        width = (2 ** lev_tree) * (self.max_len_value + 1)
         cur_level = 1
         while lst:
             string = f'level {cur_level}:'.ljust(10)
