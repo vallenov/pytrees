@@ -87,18 +87,17 @@ class BinaryTree:
     def _search(self, current_node: BaseNode, value: int):
         if not current_node:
             return
-        if current_node.value != value:
-            if current_node.left_edge:
-                self._search(current_node.left_edge, value)
-            elif current_node.right_edge:
-                self._search(current_node.right_edge, value)
-            return
-        else:
-            print(current_node.value)
-            return current_node.value
+        if current_node.value == value:
+            return True
+        res = self._search(current_node.left_edge, value)
+        if res:
+            return res
+        res = self._search(current_node.right_edge, value)
+        return res
 
     def index(self, value: int):
-        return self._search(self.head_node, value)
+        res = self._search(self.head_node, value)
+        return res if res else None
 
     def append(self, value: int):
         if not self.head_node:
