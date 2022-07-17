@@ -44,6 +44,9 @@ class BinaryTree:
                     lst.append(node.right_edge)
         return level_count
 
+    def clear(self):
+        self.head_node = None
+
     def _passing(self, current_node: BaseNode):
         if not current_node:
             return
@@ -125,7 +128,8 @@ class BinaryTree:
             if current_node.left_edge.left_edge:
                 current_node.left_edge.value = current_node.left_edge.left_edge.value
                 current_node.left_edge.left_edge.right_edge = current_node.left_edge.right_edge
-                current_node.left_edge.left_edge = None
+                current_node.left_edge = current_node.left_edge.left_edge
+                #current_node.left_edge.left_edge = None
             elif current_node.left_edge.right_edge:
                 current_node.left_edge.right_edge.left_edge = current_node.left_edge.left_edge
                 current_node.left_edge = current_node.left_edge.right_edge
@@ -142,7 +146,8 @@ class BinaryTree:
             elif current_node.right_edge.right_edge:
                 current_node.right_edge.value = current_node.right_edge.right_edge.value
                 current_node.right_edge.right_edge.left_edge = current_node.right_edge.left_edge
-                current_node.right_edge.right_edge = None
+                current_node.right_edge = current_node.right_edge.right_edge
+                #current_node.right_edge.right_edge = None
             else:
                 current_node.right_edge = None
             return
