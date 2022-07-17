@@ -13,6 +13,9 @@ class BinaryTree:
         self.head_node = None
         self.max_len_value = 0
 
+    def __contains__(self, value: int):
+        return self._search(self.head_node, value) or False
+
     def print_tree(self):
         if not self.head_node:
             print('Tree is empty')
@@ -36,12 +39,27 @@ class BinaryTree:
                     lst.append(node.right_edge)
         return level_count
 
-    def __contains__(self, item):
-        res = self.index(item)
-        return res if res else False
-
     def clear(self):
         self.head_node = None
+
+    def index(self, value: int):
+        return self._search(self.head_node, value) or False
+
+    def append(self, value: int):
+        if not self.head_node:
+            self.head_node = BaseNode(value)
+        else:
+            self._append(self.head_node, value)
+
+    def extend(self, value: list):
+        for val in value:
+            if not self.head_node:
+                self.head_node = BaseNode(val)
+            else:
+                self._append(self.head_node, val)
+
+    def remove(self, value: int):
+        self._remove_recursive(self.head_node, value)
 
     def _passing(self, current_node: BaseNode):
         if not current_node:
@@ -99,26 +117,6 @@ class BinaryTree:
         res = self._search(current_node.right_edge, value)
         return res
 
-    def index(self, value: int):
-        res = self._search(self.head_node, value)
-        return res if res else None
-
-    def append(self, value: int):
-        if not self.head_node:
-            self.head_node = BaseNode(value)
-        else:
-            self._append_recursive(self.head_node, value)
-
-    def extend(self, value: list):
-        for val in value:
-            if not self.head_node:
-                self.head_node = BaseNode(val)
-            else:
-                self._append_recursive(self.head_node, val)
-
-    def remove(self, value: int):
-        self._remove_recursive(self.head_node, value)
-
     def _remove_recursive(self, current_node: BaseNode, value: int):
         if not current_node:
             return
@@ -151,10 +149,10 @@ class BinaryTree:
             return
         self._remove_recursive(current_node.right_edge, value)
 
-    def _append_recursive(self, current_node: BaseNode, value: int):
+    def _append(self, current_node: BaseNode, value: int):
         if current_node.value > value:
             if current_node.left_edge:
-                self._append_recursive(current_node.left_edge, value)
+                self._append(current_node.left_edge, value)
             else:
                 if len(str(value)) > self.max_len_value:
                     self.max_len_value = len(str(value))
@@ -162,7 +160,7 @@ class BinaryTree:
                 return
         else:
             if current_node.right_edge:
-                self._append_recursive(current_node.right_edge, value)
+                self._append(current_node.right_edge, value)
             else:
                 if len(str(value)) > self.max_len_value:
                     self.max_len_value = len(str(value))
