@@ -36,6 +36,10 @@ class BinaryTree:
                     lst.append(node.right_edge)
         return level_count
 
+    def __contains__(self, item):
+        res = self.index(item)
+        return res if res else False
+
     def clear(self):
         self.head_node = None
 
