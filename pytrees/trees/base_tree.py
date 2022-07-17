@@ -26,7 +26,7 @@ class BinaryTree:
             print('Tree is empty')
             return
         self._passing_draw()
-        print(f'Levels count: {self.levels_count()}\n')
+        print(f'Levels with values count: {self.levels_count()}\n')
 
     def levels_count(self):
         level_count = 0
