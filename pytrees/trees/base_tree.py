@@ -1,3 +1,6 @@
+from typing import List, Union
+
+
 class BaseNode:
     def __init__(self, value, right_edge=None, left_edge=None):
         self.value = value
@@ -72,6 +75,7 @@ class BinaryTree:
         """
         Beautiful tree drawing
         """
+        lst: List[Union[BaseNode, str, None]]
         lst = [self.head_node]
         lev_tree = self.levels_count()
         width = (2 ** lev_tree) * (self.max_len_value + 1)
