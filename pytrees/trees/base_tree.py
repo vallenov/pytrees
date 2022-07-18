@@ -1,14 +1,6 @@
 from typing import List, Union
 
-
-class BaseNode:
-    def __init__(self, value, right_edge=None, left_edge=None):
-        self.value = value
-        self.right_edge = right_edge
-        self.left_edge = left_edge
-
-    def __repr__(self):
-        return f'<{type(self).__name__} {self.value} (left: {self.left_edge}, right: {self.right_edge})>'
+from trees.base_nodes import BaseNode
 
 
 class BinaryTree:
@@ -170,4 +162,3 @@ class BinaryTree:
                     self.max_len_value = len(str(value))
                 current_node.right_edge = BaseNode(value)
                 return
-
